@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" prefHeight="700.0" prefWidth="1024.0" styleClass="main-container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.DashboardController">
+   <children>
+      <ScrollPane layoutX="290.0" layoutY="60.0" prefHeight="638.0" prefWidth="735.0" style="-fx-background-color: white; -fx-border-color: white;" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <content>
+            <Pane fx:id="pnlCanvas"   prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" />
+         </content>
+      </ScrollPane>
+      <AnchorPane fx:id="pnlHeader" layoutX="72.0" layoutY="72.0" prefHeight="60.0" prefWidth="1279.0" styleClass="header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="pnlPalette" layoutX="80.0" layoutY="131.0" prefHeight="200.0" prefWidth="255.0" styleClass="palette" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <AnchorPane fx:id="btnAndGate" layoutX="8.0" layoutY="17.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label layoutX="26.0" layoutY="92.0" styleClass="gate-label" text="AND GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="62.0" fitWidth="77.0" layoutX="19.0" layoutY="26.0"  pickOnBounds="true" preserveRatio="true" styleClass="test-container">
+                     <image>
+                        <Image url="@../resources/icons/and-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="130.0" layoutY="11.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="93.0" styleClass="gate-label" text="OR GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="26.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="74.0" fitWidth="81.0" layoutX="21.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container">
+                     <image>
+                        <Image url="@../resources/icons/or-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="142.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="135.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="89.0" styleClass="gate-label" text="NOT GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="26.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button graphicTextGap="0.0" layoutX="48.0" layoutY="41.0" mnemonicParsing="false" opacity="0.0" prefHeight="544.0" prefWidth="774.0" styleClass="gate-button" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <ImageView fitHeight="70.0" fitWidth="100.0" layoutX="21.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="16.50841522216797" AnchorPane.topAnchor="10.0">
+                     <image>
+                        <Image url="@../resources/icons/not-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="27.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="135.0">
+               <children>
+                  <Label layoutX="31.0" layoutY="77.0" styleClass="gate-label" text="NAND GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="94.0" layoutX="20.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="22.0">
+                     <image>
+                        <Image url="@../resources/icons/nand-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="27.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="260.0">
+               <children>
+                  <Label layoutX="31.0" layoutY="67.0" styleClass="gate-label" text="NOR GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="44.0" fitWidth="74.0" layoutX="29.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container">
+                     <image>
+                        <Image url="@../resources/icons/nor-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="27.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="260.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="89.0" styleClass="gate-label" text="XOR GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="84.0" fitWidth="80.0" layoutX="19.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container">
+                     <image>
+                        <Image url="@../resources/icons/xor-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="27.0" prefHeight="120.0" prefWidth="120.0" styleClass="gate-container" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="385.0">
+               <children>
+                  <Label layoutX="26.0" layoutY="17.0" styleClass="gate-label" text="XNOR GATE" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0">
+                     <font>
+                        <Font name="Helvetica Neue" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="60.0" fitWidth="74.0" layoutX="24.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" styleClass="test-container">
+                     <image>
+                        <Image url="@../resources/icons/xnor-gate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

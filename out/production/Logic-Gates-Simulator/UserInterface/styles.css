@@ -1,0 +1,32 @@
+.main-container {
+    -fx-background-color: white;
+}
+.header {
+    -fx-background-color: #7E5BEF;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0 ,0.2), 10, 0, 0, 10);
+}
+.palette {
+    -fx-background-color: #f7f7f7;
+}
+.gate-container {
+    -fx-background-color: white;
+}
+.gate-label {
+    -fx-text-alignment: center;
+    -fx-text-fill: #CED1D7;
+}
+.gate-container:hover {
+    -fx-background-color: #fafafa;
+}
+.gate-container:pressed {
+    -fx-background-color: #f1f1f1;
+}
+.canvas {
+    -fx-background-color: white;
+}
+.connector {
+    -fx-cursor: hand;
+}
+.grabbing-cursor {
+    -fx-cursor: grabbing;
+}
