@@ -70,7 +70,7 @@ public class DragEventHandler implements Constants {
 
     /**
      * This method is used to handle the dragDetected event on any component on the palette.
-     * Whenever this event is generated a dragboard is created with the content as the type of component.
+     * Whenever this event is generated a dragBoard is created with the content as the type of component.
      * The component type also needs to be passed so that it can determine which component's object needs to be created.
      * @param mouseEvent
      * @param componentType
