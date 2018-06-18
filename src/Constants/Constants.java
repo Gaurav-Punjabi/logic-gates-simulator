@@ -1,5 +1,7 @@
 package Constants;
 
+import javafx.scene.paint.Color;
+
 /**
  * This is just a interface for holding all the constants like the type of components and all.
  */
@@ -11,4 +13,5 @@ public interface Constants {
     String TYPE_NAND_GATE = "NANDGATE";
     String TYPE_XOR_GATE = "XORGATE";
     String TYPE_XNOR_GATE = "XNORGATE";
+    Color LINE_COLOR = Color.web("#515151");
 }

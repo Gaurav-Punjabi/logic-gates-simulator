@@ -4,8 +4,16 @@ import Constants.Constants;
 import UserInterface.components.AndGate;
 import UserInterface.DashboardController;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * This is the main class where all the event handling for dragging the different components is handled.
@@ -18,10 +26,10 @@ public class DragEventHandler implements Constants {
 
     //                                      VARIABLE DECLARATION
     private DashboardController dashboardController;
-    // this variable holds the current variable which is being dragged
-    private AnchorPane currentComponent;
+    // this variable holds the current variable which is being dragged.
+    private Node currentComponent;
     // this boolean is a flag that is used to indicate that a dragged component has entered the canvas.
-    private boolean componentEntered;
+    private boolean componentEntered,enteredComponent;
     // this boolean is a flag that is used to indicate that a dragged component has been dropped and should'nt be removed
     // when the drag exits.
     private boolean componentDropped;
@@ -33,6 +41,7 @@ public class DragEventHandler implements Constants {
         this.currentComponent = null;
         this.componentEntered = false;
         this.componentDropped = false;
+        this.enteredComponent = false;
         addListeners();
     }
 
@@ -48,10 +57,15 @@ public class DragEventHandler implements Constants {
 //        dashboardController.getNorButtonGate().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NOR_GATE));
 //        dashboardController.getXorGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_XOR_GATE));
 //        dashboardController.getXnorGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_XNOR_GATE));
+        dashboardController.getCanvasPanel().setOnMouseEntered(this::entered);
         dashboardController.getCanvasPanel().setOnDragEntered(this::canvasDragEntered);
         dashboardController.getCanvasPanel().setOnDragOver(this::canvasDragOver);
         dashboardController.getCanvasPanel().setOnDragExited(this::canvasDragExited);
         dashboardController.getCanvasPanel().setOnDragDropped(this::canvasDragDropped);
+    }
+
+    private void entered(MouseEvent mouseEvent) {
+        System.out.println("Entered;");
     }
 
     /**
@@ -97,6 +111,7 @@ public class DragEventHandler implements Constants {
                 System.out.println("Xnor gate Seleceted.");
                 break;
         }
+        System.out.println(this.currentComponent instanceof AnchorPane);
         // Adding the clipboard to the dragBoard so that it can be transferred.
         dragboard.setContent(clipboardContent);
         mouseEvent.consume();
@@ -113,7 +128,8 @@ public class DragEventHandler implements Constants {
         //Checking for the flag.
         if(!componentEntered) {
             // Setting the position of the currentComponent.
-            this.setPosition(dragEvent, currentComponent);
+            if(this.currentComponent instanceof  AnchorPane)
+                this.setPosition(dragEvent, (AnchorPane)currentComponent);
             //Checking if the component is already present or not.
             //If it is already present then we do not add it to the CanvasPanel.
             if(!this.dashboardController.getCanvasPanel().getChildren().contains(currentComponent))
@@ -130,9 +146,14 @@ public class DragEventHandler implements Constants {
      */
     public void canvasDragOver(DragEvent dragEvent) {
         if(dragEvent.getDragboard().hasString() &&
-            dragEvent.getSource() instanceof AnchorPane){
+                this.currentComponent instanceof AnchorPane){
             dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            this.setPosition(dragEvent, currentComponent);
+            this.setPosition(dragEvent, (AnchorPane)currentComponent);
+        } else if(dragEvent.getDragboard().hasString() &&
+                this.currentComponent instanceof Line) {
+//            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            ((Line)this.currentComponent).setEndX(dragEvent.getX());
+            ((Line)this.currentComponent).setEndY(dragEvent.getY());
         }
     }
 
@@ -149,6 +170,7 @@ public class DragEventHandler implements Constants {
     public void canvasDragExited(DragEvent dragEvent) {
         //Checking whether the object was just dropped or exited the bounds of Canvas.
         // if the component was dropped we do noting, we just reset the flags.
+//        System.out.println("Canvas Drag Exited.");
         if(componentDropped) {
             this.componentDropped = false;
             this.componentEntered = false;
@@ -156,6 +178,7 @@ public class DragEventHandler implements Constants {
         //if the component exited the bounds of Canvas then we remove the component from the Canvas and reset the
         // entered flag.
         else if(componentEntered) {
+            System.out.println("Removing Component");
             this.dashboardController.getCanvasPanel().getChildren().remove(currentComponent);
             this.componentEntered = false;
         }
@@ -169,8 +192,13 @@ public class DragEventHandler implements Constants {
      */
     public void canvasDragDropped(DragEvent dragEvent) {
         this.componentDropped = true;
-        addAppropirateListeners(this.currentComponent);
-        this.currentComponent = null;
+//        System.out.println("Canvas Dropped.");
+        if(currentComponent instanceof Line && !enteredComponent) {
+            this.dashboardController.getCanvasPanel().getChildren().add(currentComponent);
+        } else if(currentComponent instanceof AnchorPane) {
+            addAppropriateListeners(this.currentComponent);
+        }
+        currentComponent = null;
     }
 
     /**
@@ -190,9 +218,32 @@ public class DragEventHandler implements Constants {
         this.currentComponent = sourceComponent;
         mouseEvent.consume();
     }
-    public void lineDragDetected(MouseEvent mouseEvent) {}
-    public void lineDragOver(DragEvent dragEvent) {}
-    public void lineDragDropped(DragEvent dragEvent) {}
+    public void lineDragDetected(MouseEvent mouseEvent) {
+        Dragboard dragboard = ((Node)mouseEvent.getSource()).getParent().startDragAndDrop(TransferMode.COPY_OR_MOVE);
+        double x = ((Node) mouseEvent.getSource()).getParent().getParent().getLayoutX() + ((Node) mouseEvent.getSource()).getLayoutX() + ((Node) mouseEvent.getSource()).getLayoutBounds().getWidth()/2;
+        double y = ((Node) mouseEvent.getSource()).getParent().getParent().getLayoutY() + ((Node) mouseEvent.getSource()).getLayoutY() + ((Node) mouseEvent.getSource()).getLayoutBounds().getHeight()/2;
+        this.currentComponent = this.createLine(x,y,x,y);
+        ((Line) this.currentComponent).setFill(Color.BLACK);
+        ((Line) this.currentComponent).setStrokeWidth(3);
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(mouseEvent.getX() + "," + mouseEvent.getY());
+        dragboard.setContent(clipboardContent);
+        mouseEvent.consume();
+    }
+    public void connectorDragOver(DragEvent dragEvent) {
+        dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        System.out.println("Connector Drag Over.");
+        dragEvent.consume();
+    }
+    public void connectorDragEntered(DragEvent dragEvent) {
+        System.out.println("Connector Drag Entered.");
+    }
+    public void connectorDragExited(DragEvent dragEvent) {
+        System.out.println("Connector Drag Exited.");
+    }
+    public void connectorDragDropped(DragEvent dragEvent) {
+        System.out.println("Connector Drag Dropped.");
+    }
 
 
      //                                             SERVICE METHODS
@@ -215,12 +266,35 @@ public class DragEventHandler implements Constants {
      * First the method identifies which type of component is It and then it adds the respective components.
      * @param component : The component to which listeners needs to be added.
      */
-    private void addAppropirateListeners(Node component) {
+    private void addAppropriateListeners(Node component) {
         if(component == null)
             return;;
         if(component instanceof  AndGate) {
             AndGate ref = (AndGate) component;
-            ref.getAndGate().setOnDragDetected(event -> componentDragDetected(event));
+            ref.getAndGate().setOnDragDetected(this::componentDragDetected);
+            ref.getOutputConnector().setOnDragDetected(this::lineDragDetected);
+            ref.getInputA().setOnDragOver(this::connectorDragOver);
+            ref.getInputA().setOnDragEntered(this::canvasDragEntered);
+            ref.getInputA().setOnDragExited(this::canvasDragExited);
+            ref.getInputA().setOnDragDropped(this::canvasDragDropped);
+            ref.getInputB().setOnDragOver(this::connectorDragOver);
+            ref.getInputB().setOnDragEntered(this::canvasDragEntered);
+            ref.getInputB().setOnDragExited(this::canvasDragExited);
+            ref.getInputB().setOnDragDropped(this::canvasDragDropped);
+            ref.getAndGate().setOnDragOver(this::connectorDragOver);
+            ref.getAndGate().setOnDragEntered(this::connectorDragEntered);
+            ref.getAndGate().setOnDragExited(this::connectorDragExited);
+            ref.getAndGate().setOnDragDropped(this::connectorDragDropped);
         }
+    }
+
+    private  Line createLine(final double startX,
+                             final double startY,
+                             final double endX,
+                             final double endY) {
+        Line line = new Line(startX,startY,endX,endY);
+        line.setStrokeWidth(3);
+        line.setStroke(LINE_COLOR);
+        return line;
     }
 }

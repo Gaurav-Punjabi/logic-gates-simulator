@@ -4,25 +4,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="120.0" prefWidth="146.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.components.AndGate">
+<AnchorPane prefHeight="120.0" prefWidth="146.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OrGateController">
    <children>
-      <ImageView fitHeight="11.0" fitWidth="11.0" layoutX="29.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="30.0">
+      <ImageView fx:id="inputA" fitHeight="11.0" fitWidth="11.0" layoutX="29.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="30.0">
          <image>
             <Image url="@../../resources/icons/connector.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="11.0" fitWidth="11.0" layoutX="117.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="outputConnector" fitHeight="11.0" fitWidth="11.0" layoutX="117.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/icons/connector.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="11.0" fitWidth="11.0" layoutX="30.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="35.0">
+      <ImageView fx:id="inputB" fitHeight="11.0" fitWidth="11.0" layoutX="30.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="35.0">
          <image>
             <Image url="@../../resources/icons/connector.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="108.0" fitWidth="115.0" layoutX="16.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orGate" fitHeight="108.0" fitWidth="115.0" layoutX="16.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/icons/or.png" />
          </image>

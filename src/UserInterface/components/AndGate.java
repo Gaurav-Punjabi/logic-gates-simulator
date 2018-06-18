@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 
@@ -17,7 +18,9 @@ public class AndGate extends AnchorPane {
 
     // Reference to the controller of the component.
     private AndGateController andGateController;
+    private Line outputLine,inputLineA,inputLineB;
 
+    //                                            CONSTRUCTOR
     public AndGate() {
         try {
             // Loading the component.
@@ -35,6 +38,18 @@ public class AndGate extends AnchorPane {
         }
     }
 
+    public void setInputLineA(Line inputLineA) {
+        this.inputLineA = inputLineA;
+    }
+
+    public void setOutputLine(Line outputLine) {
+        this.outputLine = outputLine;
+    }
+
+    public void setInputLineB(Line inputLineB) {
+        this.inputLineB = inputLineB;
+    }
+
     public ImageView getAndGate() {
         return andGateController.getAndGate();
     }
@@ -49,6 +64,18 @@ public class AndGate extends AnchorPane {
 
     public ImageView getInputB() {
         return andGateController.getInputB();
+    }
+
+    public Line getOutputLine() {
+        return outputLine;
+    }
+
+    public Line getInputLineA() {
+        return inputLineA;
+    }
+
+    public Line getInputLineB() {
+        return inputLineB;
     }
 
     @Override

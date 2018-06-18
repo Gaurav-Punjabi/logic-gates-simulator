@@ -3,7 +3,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="65.0" prefWidth="80.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AndGateController">
    <children>
@@ -17,15 +16,11 @@
             <Image url="@../../resources/icons/connector.png" />
          </image>
       </ImageView>
-      <Pane layoutX="57.0" layoutY="25.0" prefHeight="12.0" prefWidth="12.0" styleClass="connector">
-         <children>
-            <ImageView fx:id="outputConnector" fitHeight="8.0" fitWidth="8.0" layoutX="3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="connector">
-               <image>
-                  <Image url="@../../resources/icons/connector.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+      <ImageView fx:id="outputConnector" fitHeight="8.0" fitWidth="8.0" layoutX="60.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" styleClass="connector">
+         <image>
+            <Image url="@../../resources/icons/connector.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="andGate" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" styleClass="grabbing-cursor">
          <image>
             <Image url="@../../resources/icons/and.png" />
