@@ -1,8 +1,8 @@
 package Controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 
-import javax.swing.text.html.ImageView;
 
 public class OrGateController {
     @FXML

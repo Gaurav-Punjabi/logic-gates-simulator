@@ -13,5 +13,7 @@ public interface Constants {
     String TYPE_NAND_GATE = "NANDGATE";
     String TYPE_XOR_GATE = "XORGATE";
     String TYPE_XNOR_GATE = "XNORGATE";
+    String TYPE_LED = "LED";
+    String TYPE_POWER_SOURCE = "POWERSOURCE";
     Color LINE_COLOR = Color.web("#515151");
 }

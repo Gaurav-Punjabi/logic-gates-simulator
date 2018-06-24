@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="80.0" prefWidth="80.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PowerSourceController">
+   <children>
+      <ImageView fx:id="outputConnector" fitHeight="10.0" fitWidth="10.0" layoutX="63.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@../../resources/icons/connector.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="powerSource" fitHeight="65.0" fitWidth="65.0" layoutX="2.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/icons/positive-battery.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

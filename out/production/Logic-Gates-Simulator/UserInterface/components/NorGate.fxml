@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="60.0" prefWidth="80.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NorGateController">
+   <children>
+      <ImageView fx:id="norGate" fitHeight="50.0" fitWidth="50.0" layoutX="16.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/icons/or.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="outputConnector" fitHeight="15.0" fitWidth="15.0" layoutX="59.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/icons/bubble.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="inputA" fitHeight="11.0" fitWidth="11.0" layoutX="17.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="33.0">
+         <image>
+            <Image url="@../../resources/icons/connector.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="inputB" fitHeight="11.0" fitWidth="11.0" layoutX="17.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="37.0">
+         <image>
+            <Image url="@../../resources/icons/connector.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>

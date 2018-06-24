@@ -1,19 +1,19 @@
 package Controllers;
 
-import Constants.Constants;
-import UserInterface.components.AndGate;
+import BackEnd.BinaryGate;
+import BackEnd.CircuitComponent;
+import BackEnd.PowerSource;
+import Constants.*;
+import UserInterface.components.*;
 import UserInterface.DashboardController;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.io.File;
-import java.net.MalformedURLException;
 
 /**
  * This is the main class where all the event handling for dragging the different components is handled.
@@ -22,50 +22,60 @@ import java.net.MalformedURLException;
  *      2- The dragEventHandling of the main canvas
  *      3- The dragEventHandling of the lines.
  */
-public class DragEventHandler implements Constants {
+public class DragEventHandler implements Constants, DragConstants {
 
-    //                                      VARIABLE DECLARATION
+    /*******************************************************************************************************************
+                                                    VARIABLE DECLARATION
+     ******************************************************************************************************************/
     private DashboardController dashboardController;
     // this variable holds the current variable which is being dragged.
     private Node currentComponent;
-    // this boolean is a flag that is used to indicate that a dragged component has entered the canvas.
-    private boolean componentEntered,enteredComponent;
+    private AnchorPane sourceComponent;
     // this boolean is a flag that is used to indicate that a dragged component has been dropped and should'nt be removed
     // when the drag exits.
-    private boolean componentDropped;
-    //                                    END OF VARIABLE DECLARATION
+    private boolean componentDropped,newComponent;
+    // Just storing the reference of the CanvasPane as it would be required frequently.
+    private Pane canvasPanel;
+    // The object of the decoder that decodes the circuit and generates the output
+    private Decoder decoder;
 
-    //                                            CONSTRUCTOR
+    /*******************************************************************************************************************
+                                                 END OF VARIABLE DECLARATION
+     ******************************************************************************************************************/
+
+
+    /*******************************************************************************************************************
+                                                        CONSTRUCTOR
+     ******************************************************************************************************************/
     public DragEventHandler(final DashboardController dashboardController){
         this.dashboardController  = dashboardController;
         this.currentComponent = null;
-        this.componentEntered = false;
         this.componentDropped = false;
-        this.enteredComponent = false;
+        this.newComponent = false;
+        this.decoder = new Decoder(this);
+        this.canvasPanel = dashboardController.getCanvasPanel();
         addListeners();
     }
+    /*******************************************************************************************************************
+                                                    END OF CONSTRUCTOR
+     ******************************************************************************************************************/
+
 
     /**
      * This method just adds all the listeners to the respective components.
-     * It was'nt necessary just did it to segregate the listeners from the rest of the code.
+     * It wasn't necessary just did it to segregate the listeners from the rest of the code.
      */
     private void addListeners() {
         dashboardController.getAndGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_AND_GATE));
-//        dashboardController.getOrGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_OR_GATE));
-//        dashboardController.getNotGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NOT_GATE));
-//        dashboardController.getNandGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NAND_GATE));
-//        dashboardController.getNorButtonGate().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NOR_GATE));
-//        dashboardController.getXorGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_XOR_GATE));
-//        dashboardController.getXnorGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_XNOR_GATE));
-        dashboardController.getCanvasPanel().setOnMouseEntered(this::entered);
-        dashboardController.getCanvasPanel().setOnDragEntered(this::canvasDragEntered);
-        dashboardController.getCanvasPanel().setOnDragOver(this::canvasDragOver);
-        dashboardController.getCanvasPanel().setOnDragExited(this::canvasDragExited);
-        dashboardController.getCanvasPanel().setOnDragDropped(this::canvasDragDropped);
-    }
-
-    private void entered(MouseEvent mouseEvent) {
-        System.out.println("Entered;");
+        dashboardController.getLEDButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_LED));
+        dashboardController.getPowerSourceButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_POWER_SOURCE));
+        dashboardController.getOrGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_OR_GATE));
+        dashboardController.getNandGateButton().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NAND_GATE));
+        dashboardController.getNorButtonGate().setOnDragDetected(event -> paletteDragDetected(event, TYPE_NOR_GATE));
+        dashboardController.getPowerButton().setOnMouseClicked(this::powerButtonClicked);
+        dashboardController.getCanvasPanel().setOnMouseDragEntered(this::canvasDragEntered);
+        dashboardController.getCanvasPanel().setOnMouseDragExited(this::canvasDragExited);
+        dashboardController.getCanvasPanel().setOnMouseDragOver(this::canvasDragOver);
     }
 
     /**
@@ -76,45 +86,9 @@ public class DragEventHandler implements Constants {
      * @param componentType
      */
     public void paletteDragDetected(MouseEvent mouseEvent, String componentType) {
-        // Starting the drag Event for the Canvas Panel.
-        Dragboard dragboard = dashboardController.getCanvasPanel().startDragAndDrop(TransferMode.COPY_OR_MOVE);
-        ClipboardContent clipboardContent = new ClipboardContent();
-        // Adding the string as componentType to the clipBoard.
-        clipboardContent.putString(componentType);
-        //Checking for which type of component needs to be initialized.
-        switch (componentType) {
-            case TYPE_AND_GATE :
-                this.currentComponent = new AndGate();
-                break;
-
-            case TYPE_OR_GATE :
-                System.out.println("Or Gate Selected.");
-                break;
-
-            case TYPE_NOT_GATE:
-                System.out.println("Not gate Selected.");
-                break;
-
-            case TYPE_NAND_GATE:
-                System.out.println("Nand Gate selected.");
-                break;
-
-            case TYPE_NOR_GATE:
-                System.out.println("Nor gate selected.");
-                break;
-
-            case TYPE_XOR_GATE:
-                System.out.println("Xor gate Selected.");
-                break;
-
-            case TYPE_XNOR_GATE:
-                System.out.println("Xnor gate Seleceted.");
-                break;
-        }
-        System.out.println(this.currentComponent instanceof AnchorPane);
-        // Adding the clipboard to the dragBoard so that it can be transferred.
-        dragboard.setContent(clipboardContent);
-        mouseEvent.consume();
+        ((Node)mouseEvent.getSource()).startFullDrag();
+        this.currentComponent = generateRequiredComponent(componentType);
+        this.newComponent = false;
     }
 
     /**
@@ -124,38 +98,26 @@ public class DragEventHandler implements Constants {
      * Also whenever the drag actually enters the CanvasPanel we set its co-ordinates and add it to the CanvasPanel.
      * @param dragEvent
      */
-    public void canvasDragEntered(DragEvent dragEvent) {
-        //Checking for the flag.
-        if(!componentEntered) {
-            // Setting the position of the currentComponent.
-            if(this.currentComponent instanceof  AnchorPane)
-                this.setPosition(dragEvent, (AnchorPane)currentComponent);
-            //Checking if the component is already present or not.
-            //If it is already present then we do not add it to the CanvasPanel.
-            if(!this.dashboardController.getCanvasPanel().getChildren().contains(currentComponent))
-                this.dashboardController.getCanvasPanel().getChildren().add(currentComponent);
-            // Indicating that the drag actually entered the CanvasPanel.
-            this.componentEntered = true;
-        }
+    public void canvasDragEntered(MouseDragEvent dragEvent) {
+        if(!this.canvasPanel.getChildren().contains(currentComponent))
+            this.canvasPanel.getChildren().add(currentComponent);
+        if(this.currentComponent instanceof PowerSourceComponent)
+            this.decoder.addPowerSource((PowerSourceComponent)this.currentComponent);
     }
 
     /**
      * This method is used to handle the dragOver event on the CanvasPanel.
      * We just simply change the position of the component that was dragged.
-     * @param dragEvent
+     * @param mouseEvent
      */
-    public void canvasDragOver(DragEvent dragEvent) {
-        if(dragEvent.getDragboard().hasString() &&
-                this.currentComponent instanceof AnchorPane){
-            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            this.setPosition(dragEvent, (AnchorPane)currentComponent);
-        } else if(dragEvent.getDragboard().hasString() &&
-                this.currentComponent instanceof Line) {
-//            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            ((Line)this.currentComponent).setEndX(dragEvent.getX());
-            ((Line)this.currentComponent).setEndY(dragEvent.getY());
-        }
+    public void canvasDragOver(MouseEvent mouseEvent) {
+        this.setPosition(mouseEvent,currentComponent);
     }
+
+    private void powerButtonClicked(MouseEvent mouseEvent) {
+        this.decoder.decode();
+    }
+
 
     /**
      * This method is used to handle event which is generated when a drag exits the CanvasPanel.
@@ -167,38 +129,11 @@ public class DragEventHandler implements Constants {
      * which indicates whether the object was dropped or it actually exited the Canvas.
      * @param dragEvent
      */
-    public void canvasDragExited(DragEvent dragEvent) {
-        //Checking whether the object was just dropped or exited the bounds of Canvas.
-        // if the component was dropped we do noting, we just reset the flags.
-//        System.out.println("Canvas Drag Exited.");
-        if(componentDropped) {
-            this.componentDropped = false;
-            this.componentEntered = false;
-        }
-        //if the component exited the bounds of Canvas then we remove the component from the Canvas and reset the
-        // entered flag.
-        else if(componentEntered) {
-            System.out.println("Removing Component");
-            this.dashboardController.getCanvasPanel().getChildren().remove(currentComponent);
-            this.componentEntered = false;
-        }
-    }
-
-    /**
-     * This method is used to handle the event which is generated when the object is dropped on the canvas.
-     * When a object is dropped on the canvas we indicate that the component was dropped and add the listeners to the
-     * components and reset the currentComponent to null.
-     * @param dragEvent
-     */
-    public void canvasDragDropped(DragEvent dragEvent) {
-        this.componentDropped = true;
-//        System.out.println("Canvas Dropped.");
-        if(currentComponent instanceof Line && !enteredComponent) {
-            this.dashboardController.getCanvasPanel().getChildren().add(currentComponent);
-        } else if(currentComponent instanceof AnchorPane) {
-            addAppropriateListeners(this.currentComponent);
-        }
-        currentComponent = null;
+    public void canvasDragExited(MouseDragEvent dragEvent) {
+        if(!newComponent)
+        addListenersToComponent((AnchorPane) currentComponent);
+        this.newComponent = false;
+        this.currentComponent = null;
     }
 
     /**
@@ -209,40 +144,59 @@ public class DragEventHandler implements Constants {
      * @param mouseEvent
      */
     public void componentDragDetected(MouseEvent mouseEvent) {
-        // Accessing the reference to the component that needs to be moved.
-        AnchorPane sourceComponent = (AnchorPane) ((Node)mouseEvent.getSource()).getParent();
-        Dragboard dragboard = sourceComponent.startDragAndDrop(TransferMode.COPY_OR_MOVE);
+        Object object = mouseEvent.getSource();
+        if(object instanceof Node) {
+            Node component = ((Node)object);
+            getNodeParent(component).startFullDrag();
+            System.out.println("componentDragDetected checking the Parent node : " + getNodeParent(component));
+            this.currentComponent = component.getParent().getParent();
+            this.newComponent = true;
+        }
+    }
+
+    public void outputDragDetected(MouseEvent mouseEvent) {
+        Node component = ((Node)mouseEvent.getSource());
+        Dragboard dragboard = component.getParent().getParent().startDragAndDrop(TransferMode.MOVE);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString("COMPONENT");
+
+        double x = component.getLayoutX() + component.getParent().getParent().getLayoutX() + component.getLayoutBounds().getWidth()/2;
+        double y = component.getLayoutY() + component.getParent().getParent().getLayoutY() + component.getLayoutBounds().getHeight()/2;
+
+        this.currentComponent = createLine(x,y,x,y);
+        this.sourceComponent = (AnchorPane)getNodeParent(mouseEvent.getSource());
+
+        mapLineTo(getNodeParent(mouseEvent.getSource()),(Line)this.currentComponent, ((Node) mouseEvent.getSource()).getId());
+
+        clipboardContent.putString("String");
         dragboard.setContent(clipboardContent);
-        this.currentComponent = sourceComponent;
-        mouseEvent.consume();
+        setDragView(dragboard);
     }
-    public void lineDragDetected(MouseEvent mouseEvent) {
-        Dragboard dragboard = ((Node)mouseEvent.getSource()).getParent().startDragAndDrop(TransferMode.COPY_OR_MOVE);
-        double x = ((Node) mouseEvent.getSource()).getParent().getParent().getLayoutX() + ((Node) mouseEvent.getSource()).getLayoutX() + ((Node) mouseEvent.getSource()).getLayoutBounds().getWidth()/2;
-        double y = ((Node) mouseEvent.getSource()).getParent().getParent().getLayoutY() + ((Node) mouseEvent.getSource()).getLayoutY() + ((Node) mouseEvent.getSource()).getLayoutBounds().getHeight()/2;
-        this.currentComponent = this.createLine(x,y,x,y);
-        ((Line) this.currentComponent).setFill(Color.BLACK);
-        ((Line) this.currentComponent).setStrokeWidth(3);
-        ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(mouseEvent.getX() + "," + mouseEvent.getY());
-        dragboard.setContent(clipboardContent);
-        mouseEvent.consume();
+
+    public void inputDragEntered(DragEvent dragEvent) {
+        if(this.currentComponent instanceof Line) {
+            // setting the position of the line by passing the inputConnector and the line component.
+            setLinePosition((Node)dragEvent.getSource(), (Line)this.currentComponent);
+
+            // checking if the component is present or not, if not then adding the component to the canvas.
+            if(!this.canvasPanel.getChildren().contains(this.currentComponent))
+                this.canvasPanel.getChildren().add(this.currentComponent);
+        }
     }
-    public void connectorDragOver(DragEvent dragEvent) {
-        dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        System.out.println("Connector Drag Over.");
-        dragEvent.consume();
+
+    public void inputDragOver(DragEvent dragEvent) {
+        if(this.currentComponent instanceof Line) {
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
+            mapLineTo(getNodeParent(dragEvent.getSource()), (Line)this.currentComponent, ((Node)dragEvent.getSource()).getId());
+            System.out.println("InputDragOver checking FXID : " + ((Node) dragEvent.getSource()).getId());
+            mapNodeTo(sourceComponent,getNodeParent(dragEvent.getSource()),((Node) dragEvent.getSource()).getId());
+            // setting the position of the line
+            setLinePosition((Node)dragEvent.getSource(),(Line)this.currentComponent);
+            if(!this.canvasPanel.getChildren().contains(this.currentComponent))
+                this.canvasPanel.getChildren().add(this.currentComponent);
+        }
     }
-    public void connectorDragEntered(DragEvent dragEvent) {
-        System.out.println("Connector Drag Entered.");
-    }
-    public void connectorDragExited(DragEvent dragEvent) {
-        System.out.println("Connector Drag Exited.");
-    }
-    public void connectorDragDropped(DragEvent dragEvent) {
-        System.out.println("Connector Drag Dropped.");
+
+    public void inputDragExited(DragEvent dragEvent) {
     }
 
 
@@ -251,40 +205,122 @@ public class DragEventHandler implements Constants {
       * This method is used to set the position of the component.
       * We take the current X and Y position of the mouse and subtract it by half of the width and height of the component
       * as we need to drag it from the center.
-      * @param dragEvent : the dragEvent from which mouse co-ordinates can be accessed.
-      * @param anchorPane : the object that needs to be positioned.
+      * @param mouseEvent : the mouseEvent from which mouse co-ordinates can be accessed.
+      * @param node : the object that needs to be positioned.
       */
-    private void setPosition(DragEvent dragEvent, AnchorPane anchorPane) {
-        double layoutX = dragEvent.getX() - anchorPane.getWidth()/2;
-        double layoutY = dragEvent.getY() - anchorPane.getHeight()/2;
-        anchorPane.setLayoutX(layoutX);
-        anchorPane.setLayoutY(layoutY);
+    private void setPosition(final MouseEvent mouseEvent,
+                             final Node node) {
+        if(node instanceof AnchorPane) {
+            AnchorPane anchorPane = (AnchorPane)node;
+            double layoutX = mouseEvent.getX() - anchorPane.getWidth() / 2;
+            double layoutY = mouseEvent.getY() - anchorPane.getHeight() / 2;
+            anchorPane.setLayoutX(layoutX);
+            anchorPane.setLayoutY(layoutY);
+            if(node instanceof LEDComponent) {
+                LEDComponent ledComponent = (LEDComponent)node;
+                adjustLine(ledComponent.getInputLine(),layoutX,layoutY,ledComponent.getInputImage(),true);
+            } else if(node instanceof AndGate) {
+                AndGate andGate = (AndGate)node;
+                adjustLine(andGate.getOutputLine(),layoutX,layoutY,andGate.getOutputImage(),false);
+                adjustLine(andGate.getInputALine(),layoutX,layoutY,andGate.getInputAImage(),true);
+                adjustLine(andGate.getInputBLine(),layoutX,layoutY,andGate.getInputBImage(),true);
+            } else if(node instanceof OrGateComponent) {
+                OrGateComponent orGateComponent = (OrGateComponent)node;
+                adjustLine(orGateComponent.getOutputLine(),layoutX,layoutY,orGateComponent.getOutputConnector(),false);
+                adjustLine(orGateComponent.getInputALine(),layoutX, layoutY,orGateComponent.getInputAImage(),true);
+                adjustLine(orGateComponent.getInputBLine(),layoutX,layoutY,orGateComponent.getInputBImage(),true);
+            } else if(node instanceof NandGateComponent){
+                NandGateComponent nandGateComponent = (NandGateComponent) node;
+                adjustLine(nandGateComponent.getOutputLine(),layoutX,layoutY,nandGateComponent.getOutputImage(),false);
+                adjustLine(nandGateComponent.getInputALine(),layoutX,layoutY,nandGateComponent.getInputAImage(),true);
+                adjustLine(nandGateComponent.getInputBLine(),layoutX,layoutY,nandGateComponent.getInputBImage(),true);
+            } else if(node instanceof PowerSourceComponent) {
+                PowerSourceComponent powerSourceComponent = (PowerSourceComponent)node;
+                adjustLine(powerSourceComponent.getOutputLine(),layoutX,layoutY,powerSourceComponent.getOutputConnector(),false);
+            } else if(node instanceof NorGateComponent) {
+                NorGateComponent norGateComponent = (NorGateComponent) node;
+                adjustLine(norGateComponent.getOutputLine(),layoutX,layoutY,norGateComponent.getOutputImage(),false);
+                adjustLine(norGateComponent.getInputALine(),layoutX,layoutY,norGateComponent.getInputAImage(),true);
+                adjustLine(norGateComponent.getInputBLine(),layoutX,layoutY,norGateComponent.getInputBImage(),true);
+            }
+        }
     }
 
-    /**
-     * This method is used to add listeners to all the components of the given Node.
-     * First the method identifies which type of component is It and then it adds the respective components.
-     * @param component : The component to which listeners needs to be added.
-     */
-    private void addAppropriateListeners(Node component) {
-        if(component == null)
-            return;;
-        if(component instanceof  AndGate) {
-            AndGate ref = (AndGate) component;
-            ref.getAndGate().setOnDragDetected(this::componentDragDetected);
-            ref.getOutputConnector().setOnDragDetected(this::lineDragDetected);
-            ref.getInputA().setOnDragOver(this::connectorDragOver);
-            ref.getInputA().setOnDragEntered(this::canvasDragEntered);
-            ref.getInputA().setOnDragExited(this::canvasDragExited);
-            ref.getInputA().setOnDragDropped(this::canvasDragDropped);
-            ref.getInputB().setOnDragOver(this::connectorDragOver);
-            ref.getInputB().setOnDragEntered(this::canvasDragEntered);
-            ref.getInputB().setOnDragExited(this::canvasDragExited);
-            ref.getInputB().setOnDragDropped(this::canvasDragDropped);
-            ref.getAndGate().setOnDragOver(this::connectorDragOver);
-            ref.getAndGate().setOnDragEntered(this::connectorDragEntered);
-            ref.getAndGate().setOnDragExited(this::connectorDragExited);
-            ref.getAndGate().setOnDragDropped(this::connectorDragDropped);
+    private void adjustLine(final Line lineToAdjust,
+                            final double x,
+                            final double y,
+                            final ImageView targetToAdjustWith,
+                            final boolean isEnd) {
+        if(lineToAdjust == null)
+            return;
+        if(isEnd) {
+            lineToAdjust.setEndX(x + targetToAdjustWith.getLayoutX() + targetToAdjustWith.getLayoutBounds().getWidth()/2);
+            lineToAdjust.setEndY(y + targetToAdjustWith.getLayoutY() + targetToAdjustWith.getLayoutBounds().getHeight()/2);
+        } else {
+            lineToAdjust.setStartX(x + targetToAdjustWith.getLayoutX() + targetToAdjustWith.getLayoutBounds().getWidth()/2);
+            lineToAdjust.setStartY(y + targetToAdjustWith.getLayoutY() + targetToAdjustWith.getLayoutBounds().getHeight()/2);
+        }
+    }
+
+    private void setDragView(Dragboard dragboard) {
+        dragboard.setDragView(new Image("resources/icons/drag-image.png"));
+    }
+
+    private void addListenersToComponent(AnchorPane currentComponent) {
+        if(currentComponent == null) {
+            return;
+        }
+        System.out.println("Listeners Added");
+        if(currentComponent instanceof AndGate) {
+            AndGate andGate = (AndGate)currentComponent;
+            andGate.getAndGate().setOnDragDetected(this::componentDragDetected);
+            andGate.getOutputImage().setOnDragDetected(this::outputDragDetected);
+            andGate.getInputAImage().setOnDragOver(this::inputDragOver);
+            andGate.getInputAImage().setOnDragEntered(this::inputDragEntered);
+            andGate.getInputAImage().setOnDragExited(this::inputDragExited);
+            andGate.getInputBImage().setOnDragOver(this::inputDragOver);
+            andGate.getInputBImage().setOnDragEntered(this::inputDragEntered);
+            andGate.getInputBImage().setOnDragExited(this::inputDragExited);
+        } else if(currentComponent instanceof OrGateComponent) {
+            OrGateComponent orGateComponent = (OrGateComponent)currentComponent;
+            orGateComponent.getOrGate().setOnDragDetected(this::componentDragDetected);
+            orGateComponent.getOutputConnector().setOnDragDetected(this::outputDragDetected);
+            orGateComponent.getInputAImage().setOnDragEntered(this::inputDragEntered);
+            orGateComponent.getInputAImage().setOnDragOver(this::inputDragOver);
+            orGateComponent.getInputAImage().setOnDragExited(this::inputDragExited);
+            orGateComponent.getInputBImage().setOnDragEntered(this::inputDragEntered);
+            orGateComponent.getInputBImage().setOnDragExited(this::inputDragExited);
+            orGateComponent.getInputBImage().setOnDragOver(this::inputDragOver);
+        }else if(currentComponent instanceof LEDComponent) {
+            LEDComponent ledComponent = (LEDComponent)currentComponent;
+            ledComponent.getLEDImage().setOnDragDetected(this::componentDragDetected);
+            ledComponent.getInputImage().setOnDragEntered(this::inputDragEntered);
+            ledComponent.getInputImage().setOnDragOver(this::inputDragOver);
+            ledComponent.getInputImage().setOnDragExited(this::inputDragExited);
+        } else if(currentComponent instanceof NandGateComponent) {
+            NandGateComponent nandGateComponent = (NandGateComponent) currentComponent;
+            nandGateComponent.getNandGate().setOnDragDetected(this::componentDragDetected);
+            nandGateComponent.getOutputImage().setOnDragDetected(this::outputDragDetected);
+            nandGateComponent.getInputAImage().setOnDragOver(this::inputDragOver);
+            nandGateComponent.getInputAImage().setOnDragEntered(this::inputDragEntered);
+            nandGateComponent.getInputAImage().setOnDragExited(this::inputDragExited);
+            nandGateComponent.getInputBImage().setOnDragOver(this::inputDragOver);
+            nandGateComponent.getInputBImage().setOnDragEntered(this::inputDragEntered);
+            nandGateComponent.getInputBImage().setOnDragExited(this::inputDragExited);
+        } else if(currentComponent instanceof PowerSourceComponent) {
+            PowerSourceComponent powerSourceComponent = (PowerSourceComponent)currentComponent;
+            powerSourceComponent.getPowerSourceImage().setOnDragDetected(this::componentDragDetected);
+            powerSourceComponent.getOutputConnector().setOnDragDetected(this::outputDragDetected);
+        } else if(currentComponent instanceof NorGateComponent) {
+            NorGateComponent norGateComponent = (NorGateComponent) currentComponent;
+            norGateComponent.getNorGate().setOnDragDetected(this::componentDragDetected);
+            norGateComponent.getOutputImage().setOnDragDetected(this::outputDragDetected);
+            norGateComponent.getInputAImage().setOnDragOver(this::inputDragOver);
+            norGateComponent.getInputAImage().setOnDragEntered(this::inputDragEntered);
+            norGateComponent.getInputAImage().setOnDragExited(this::inputDragExited);
+            norGateComponent.getInputBImage().setOnDragOver(this::inputDragOver);
+            norGateComponent.getInputBImage().setOnDragEntered(this::inputDragEntered);
+            norGateComponent.getInputBImage().setOnDragExited(this::inputDragExited);
         }
     }
 
@@ -296,5 +332,111 @@ public class DragEventHandler implements Constants {
         line.setStrokeWidth(3);
         line.setStroke(LINE_COLOR);
         return line;
+    }
+
+    private void setLinePosition(final Node target,
+                                 final Line line) {
+
+        double x = target.getLayoutX() + target.getParent().getParent().getLayoutX() + target.getLayoutBounds().getWidth()/2;
+        double y = target.getLayoutY() + target.getParent().getParent().getLayoutY() + target.getLayoutBounds().getHeight()/2;
+
+        line.setEndX(x);
+        line.setEndY(y);
+    }
+
+    private void mapLineTo(final Object target,
+                           final Line line,
+                           final String fxID) {
+        if(target instanceof LEDComponent) {
+            LEDComponent ledComponent = (LEDComponent) target;
+            if(ledComponent.getInputLine() != null)
+                this.canvasPanel.getChildren().remove(ledComponent.getInputLine());
+            ledComponent.setInputLine(line);
+        } else if(target instanceof BinaryGate) {
+            BinaryGate binaryGate = (BinaryGate) target;
+            switch (fxID) {
+                case "inputA" :
+                    if(binaryGate.getInputALine() != null)
+                        this.canvasPanel.getChildren().remove(binaryGate.getInputALine());
+                    binaryGate.setInputALine(line);
+                    break;
+
+                case "inputB" :
+                    if(binaryGate.getInputBLine() != null)
+                        this.canvasPanel.getChildren().remove(binaryGate.getInputBLine());
+                    binaryGate.setInputBLine(line);
+                    break;
+
+                case "outputConnector" :
+                    if(binaryGate.getOutputLine() != null)
+                        this.canvasPanel.getChildren().remove(binaryGate.getOutputLine());
+                    binaryGate.setOutputLine(line);
+                    break;
+            }
+        } else if(target instanceof PowerSource) {
+            PowerSource powerSource = (PowerSource)target;
+            if(powerSource.getOutputLine() != null)
+                this.canvasPanel.getChildren().remove(powerSource.getOutputLine());
+            powerSource.setOutputLine(line);
+        }
+    }
+
+    public void mapNodeTo(final Parent outputNode,
+                          final Parent inputNode,
+                          final String fxId) {
+        System.out.println("Checkign the fxID : " + fxId);
+        if(outputNode instanceof LEDComponent ||
+                inputNode instanceof PowerSourceComponent ||
+                outputNode == null ||
+                inputNode == null  ||
+                !(outputNode instanceof CircuitComponent) ||
+                !(inputNode instanceof CircuitComponent)) {
+            return;
+        }
+        CircuitComponent outputComponent = (CircuitComponent)outputNode;
+        ((CircuitComponent) outputNode).setOutputNode((CircuitComponent) inputNode);
+        if(inputNode instanceof BinaryGate) {
+            BinaryGate binaryGate = (BinaryGate)inputNode;
+            if(fxId.equals("inputA")) {
+                binaryGate.setInputANode(outputComponent);
+                outputComponent.setOutputType("A");
+            } else if(fxId.equals("inputB")) {
+                binaryGate.setInputBNode(outputComponent);
+                outputComponent.setOutputType("B");
+            }
+        } else if(inputNode instanceof LEDComponent) {
+            LEDComponent ledComponent = (LEDComponent)inputNode;
+            ledComponent.setInputANode(outputComponent);
+            outputComponent.setOutputType("A");
+        }
+    }
+
+    private Parent getNodeParent(Object object) {
+        return ((Node)object).getParent().getParent();
+    }
+
+    private Node generateRequiredComponent(String componentType) {
+        switch (componentType) {
+            case TYPE_AND_GATE :
+                return new AndGate();
+
+            case TYPE_LED:
+                return new LEDComponent();
+
+            case TYPE_POWER_SOURCE:
+                return new PowerSourceComponent();
+
+            case TYPE_OR_GATE:
+                return new OrGateComponent();
+
+            case TYPE_NAND_GATE:
+                return new NandGateComponent();
+
+            case TYPE_NOR_GATE:
+                return new NorGateComponent();
+
+            default:
+                return null;
+        }
     }
 }

@@ -2,6 +2,7 @@ package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * This is a controller for the AndGate component it basically creates a link between AndGate Component and the fxml UI.
@@ -9,10 +10,6 @@ import javafx.scene.image.ImageView;
 public class AndGateController {
     @FXML
     private ImageView andGate,outputConnector,inputA,inputB;
-    @FXML
-    public void initialize() {
-        System.out.println("andGate = " + andGate);
-    }
 
     /*******************************************************************************************************************
      *                                              GETTERS & SETTERS
@@ -33,6 +30,7 @@ public class AndGateController {
     public ImageView getInputB() {
         return inputB;
     }
+
 
     /**
      * Just overriding the toString method for making the testing easier.

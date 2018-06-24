@@ -20,7 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         try {
             Parent root = FXMLLoader.load(this.getClass().getResource("Dashboard.fxml"));
             primaryStage.setTitle("Logic Gates Simulator");

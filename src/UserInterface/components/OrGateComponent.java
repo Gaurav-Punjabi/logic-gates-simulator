@@ -1,18 +1,19 @@
 package UserInterface.components;
 
+import BackEnd.BinaryGate;
 import Controllers.OrGateController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
-public class OrGate extends AnchorPane {
+public class OrGateComponent extends BinaryGate {
 
     private OrGateController orGateController;
 
-    public OrGate() {
+    public OrGateComponent() {
         try {
             //Initializing the FXML
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -34,10 +35,10 @@ public class OrGate extends AnchorPane {
     public ImageView getOrGate() {
         return this.orGateController.getOrGate();
     }
-    public ImageView getInputA() {
+    public ImageView getInputAImage() {
         return this.orGateController.getInputA();
     }
-    public ImageView getInputB() {
+    public ImageView getInputBImage() {
         return this.orGateController.getInputB();
     }
     public ImageView getOutputConnector() {
