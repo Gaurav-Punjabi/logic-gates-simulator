@@ -2,48 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BackEnd/BinaryGate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackEnd/CircuitComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackEnd/GateConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackEnd/PowerSource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackEnd/UnaryGate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants/DragConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/Decoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/LEDController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/NandGateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/NorGateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/PowerSourceController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/LEDComponent.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/LEDComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/NandGateComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/NorGateComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/PowerSourceComponent.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserInterface/components/PowerSourceComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Constants/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Constants/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/AndGateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/AndGateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/DragEventHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/DragEventHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/OrGateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/Controllers/OrGateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/Dashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/DashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/DashboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/AndGate.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/AndGate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/AndGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/AndGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/NandGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/NandGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/OrGate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/OrGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Logic-Gates-Simulator/UserInterface/components/OrGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AndGateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AndGateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/DragEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/DragEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/OrGateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/OrGateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/Dashboard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/components/AndGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/components/AndGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/components/AndGate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/components/AndGate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/components/NandGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/components/NandGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/components/OrGate.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/components/OrGate.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface/components/OrGate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface/components/OrGateComponent.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,8 +63,8 @@
       <file leaf-file-name="DragEventHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controllers/DragEventHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="328" column="7" selection-start-line="328" selection-start-column="7" selection-end-line="328" selection-end-column="7" />
+            <state relative-caret-position="252">
+              <caret line="347" column="23" lean-forward="true" selection-start-line="347" selection-start-column="23" selection-end-line="347" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -115,22 +74,22 @@
       </file>
       <file leaf-file-name="AndGate.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserInterface/components/AndGate.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="399">
               <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file leaf-file-name="Dashboard.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserInterface/Dashboard.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="882">
               <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file leaf-file-name="NorGateComponent.java" pinned="false" current-in-tab="false">
@@ -161,12 +120,12 @@
       </file>
       <file leaf-file-name="NorGate.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserInterface/components/NorGate.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="84">
               <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file leaf-file-name="Decoder.java" pinned="false" current-in-tab="false">
@@ -567,11 +526,13 @@
       <workItem from="1529835665021" duration="14000" />
       <workItem from="1529836054213" duration="198000" />
       <workItem from="1529869125235" duration="5000" />
+      <workItem from="1529908635671" duration="372000" />
+      <workItem from="1529932564776" duration="243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95834000" />
+    <option name="totallyTimeSpent" value="96449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="832" extended-state="0" />
@@ -585,19 +546,19 @@
       <window_info anchor="bottom" id="Event Log" order="15" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.35488126" />
+      <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20555556" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20555556" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="3" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39973614" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="right" id="JetGradle" order="6" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32665095" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -705,12 +666,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/PowerSourceComponent.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controllers/PowerSourceController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -753,12 +714,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/LEDComponent.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/javafx-src.zip!/javafx/scene/layout/Region.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -880,12 +841,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/NandGate.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
           <caret line="7" column="197" selection-start-line="7" selection-start-column="197" selection-end-line="7" selection-end-column="197" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controllers/OrGateController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -898,12 +859,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/OrGate.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
           <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/NandGateComponent.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -946,12 +907,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/NorGate.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/NorGateComponent.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -986,25 +947,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/components/AndGate.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/Dashboard.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
           <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controllers/DragEventHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="328" column="7" selection-start-line="328" selection-start-column="7" selection-end-line="328" selection-end-column="7" />
+        <state relative-caret-position="252">
+          <caret line="347" column="23" lean-forward="true" selection-start-line="347" selection-start-column="23" selection-end-line="347" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
