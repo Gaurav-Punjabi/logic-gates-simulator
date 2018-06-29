@@ -16,4 +16,5 @@ public interface Constants {
     String TYPE_LED = "LED";
     String TYPE_POWER_SOURCE = "POWERSOURCE";
     Color LINE_COLOR = Color.web("#515151");
+    Color SELECTED_COLOR = Color.web("00FDDC");
 }

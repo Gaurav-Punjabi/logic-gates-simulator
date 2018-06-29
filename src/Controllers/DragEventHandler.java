@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 /**
@@ -167,6 +169,11 @@ public class DragEventHandler implements Constants, DragConstants {
 
         mapLineTo(getNodeParent(mouseEvent.getSource()),(Line)this.currentComponent, ((Node) mouseEvent.getSource()).getId());
 
+        // just adjusting the UX for the user
+        Object object = mouseEvent.getSource();
+        if(object instanceof ImageView)
+            ((ImageView)object).setImage(new Image("resources/icons/connector-positive.png"));
+
         clipboardContent.putString("String");
         dragboard.setContent(clipboardContent);
         setDragView(dragboard);
@@ -185,14 +192,22 @@ public class DragEventHandler implements Constants, DragConstants {
 
     public void inputDragOver(DragEvent dragEvent) {
         if(this.currentComponent instanceof Line) {
-            dragEvent.acceptTransferModes(TransferMode.MOVE);
             mapLineTo(getNodeParent(dragEvent.getSource()), (Line)this.currentComponent, ((Node)dragEvent.getSource()).getId());
             System.out.println("InputDragOver checking FXID : " + ((Node) dragEvent.getSource()).getId());
             mapNodeTo(sourceComponent,getNodeParent(dragEvent.getSource()),((Node) dragEvent.getSource()).getId());
+
+            // just making the UX better
+            Object object = dragEvent.getSource();
+            if(object instanceof ImageView) {
+                ((ImageView)object).setImage(new Image("resources/icons/connector-positive.png"));
+            }
+            ((Line)this.currentComponent).setStroke(Color.web("#33E47F"));
+
             // setting the position of the line
             setLinePosition((Node)dragEvent.getSource(),(Line)this.currentComponent);
             if(!this.canvasPanel.getChildren().contains(this.currentComponent))
                 this.canvasPanel.getChildren().add(this.currentComponent);
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
         }
     }
 

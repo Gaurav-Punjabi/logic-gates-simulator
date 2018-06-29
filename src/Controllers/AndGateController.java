@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.awt.event.MouseEvent;
+
 /**
  * This is a controller for the AndGate component it basically creates a link between AndGate Component and the fxml UI.
  */
@@ -13,8 +15,7 @@ public class AndGateController {
 
     /*******************************************************************************************************************
      *                                              GETTERS & SETTERS
-     *******************************************************************************************************************
-     */
+     ******************************************************************************************************************/
     public ImageView getAndGate() {
         return andGate;
     }
@@ -30,7 +31,6 @@ public class AndGateController {
     public ImageView getInputB() {
         return inputB;
     }
-
 
     /**
      * Just overriding the toString method for making the testing easier.
